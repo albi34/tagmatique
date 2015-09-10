@@ -1,0 +1,31 @@
+{
+  "name": "tagmatique",
+  "version": "0.0.1",
+  "homepage": "https://github.com/albi34/tagmatique",
+  "authors": [
+    "Jeremy Albuixech <jeremy.albuixech@gmail.com>"
+  ],
+  "description": "A hashtag visualization interface",
+  "main": "app.js",
+  "keywords": [
+    "hashtags",
+    "social",
+    "network",
+    "twitter",
+    "instagram",
+    "react",
+    "sails"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "react": "~0.13.3"
+  }
+}
