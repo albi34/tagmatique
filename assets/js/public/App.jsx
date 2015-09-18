@@ -94,15 +94,15 @@ var HashtagsApp = React.createClass({
         backgroundImage: 'url(' + tag.picture + ')'
       };
 
-      return <div style={divStyle} href={tag.link} className={classes} target="blank" key={index}>
+      return <a style={divStyle} href={tag.link} className={classes} target="blank" key={index}>
         <div className={contentClasses}><span className="tag-author">@{tag.author}</span><br/><span className="tag-message">{tag.message}</span></div>
-      </div>;
+      </a>;
     });
 
     return (
       <div>
         {hashtags}
-        <a href="" onClick={this.toggle}>Toggle</a>
+        <a href="" onClick={this.toggle} >Toggle</a>
     </div>
     );
   }
