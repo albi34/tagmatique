@@ -47,7 +47,8 @@ module.exports.routes = {
   ***************************************************************************/
 
 
-  'get /hashtag': 'HashtagController.index',
-  'get /hashtag/:tag': 'HashtagController.search'
+  'get /hashtags': 'HashtagController.index',
+  'get /hashtags/:tag': 'HashtagController.search',
+  'get /hashtags/geo/:lat/:long': 'HashtagController.getLocal'
 
 };

@@ -5,8 +5,9 @@ they are included in.
 See: http://facebook.github.io/react/docs/reusable-components.html#mixins
 */
 var MyMixin = {
-  queryAPIorSomething: function (url, options, successCallback) {
-    $.get(url, function(result) {
+  queryHashtagApi: function (url, options, successCallback) {
+    console.log(options);
+    $.get(url, options, function(result) {
       successCallback(result);
    });
   },
@@ -14,7 +15,7 @@ var MyMixin = {
   // This does not overwrite the components
   // `componentWillUnmount` method but will
   // be called along side it.
-  componetWillUnmount: function () {
+  componentWillUnmount: function () {
     // Abor XHR request or something else...
   }
 };
@@ -30,7 +31,9 @@ var HashtagsApp = React.createClass({
   getInitialState: function () {
        return {
          showDefault: true,
-         hashtags:[]
+         hashtags:[],
+         initialPosition: 'unknown',
+         lastPosition: 'unknown'
        };
   },
   getDefaultProps: function () {
@@ -40,16 +43,22 @@ var HashtagsApp = React.createClass({
   },
 
   componentWillMount: function () {
+
     // Here you could setState, fetch data from a server or something else...
-    this.queryAPIorSomething('http://localhost:1337/hashtag', {} , function (data) {
+    this.queryHashtagApi('http://localhost:1337/hashtag', this.state.initialPosition , function (data) {
       this.setState({ hashtags: data.posts });
     }.bind(this));
   },
 
   componentDidMount: function () {
-    // You now have access to the DOM:
-    console.log(this.getDOMNode().html);
-
+    navigator.geolocation.getCurrentPosition(
+      (initialPosition) => this.setState({initialPosition}),
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition((lastPosition) => {
+     this.setState({lastPosition});
+   });
     // ... or to component references:
   },
 
@@ -58,6 +67,7 @@ var HashtagsApp = React.createClass({
   },
 
   componentDidUpdate: function () {
+    console.log(this.state.initialPosition);
     console.log('component updated!');
     // DOM is available here...
   },
@@ -66,6 +76,7 @@ var HashtagsApp = React.createClass({
     // Use this to tear down any event listeners
     // or do other cleanup before the compoennt is
     // destroyed.
+    navigator.geolocation.clearWatch(this.watchID);
     console.log('component will unmount!');
   },
 

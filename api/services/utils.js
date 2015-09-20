@@ -1,13 +1,26 @@
+
+var redis = require("redis");
+var redis_client = redis.createClient();
+
 module.exports = {
 
-  reqParams: function(req, params) {
-    if (params === undefined || !params) params = {};
+  setRedisKey: function(key, value, expires) {
 
-    var hashtag = req.param('tag');
-
-    params.hashtag = hashtag;
-
-    return params;
+    console.log("Caching results of the "+key+" function");
+    redis_client.set(key, value);
+    redis_client.expire(key, expires);
+  },
+  getRedisKey: function(key, cb){
+    redis_client.get(key, function (err, reply) {
+        if(err){
+          console.log(err);
+          cb(null);
+        }
+        else {
+          console.log("Fetching cached value of the "+key+" function");
+          cb(reply);
+        }
+    });
   }
 
 };

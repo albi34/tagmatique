@@ -8,15 +8,24 @@ module.exports = {
 
 	getPosts: function(cb) {
 
-  var params = 'montreal';
-  ig.tag_media_recent(params, function(error, medias, pagination, remaining, limit) {
-    if (!error) {
-      cb(medias);
-    }
-    else {
-      console.log(error);
-    }
-  });
+	  ig.media_popular( function(error, medias, pagination, remaining, limit) {
+	    if (!error) {
+	      cb(medias);
+	    }
+	    else {
+	      console.log(error);
+	    }
+	  });
 
+  },
+	getPostsByCoords: function(coords, cb) {
+	  ig.media_search(parseFloat(coords.lat), parseFloat(coords.long), {}, function(error, medias, pagination, remaining, limit) {
+	    if (!error) {
+	      cb(medias);
+	    }
+	    else {
+	      console.log(error);
+	    }
+	  });
   }
 };

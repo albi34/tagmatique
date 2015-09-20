@@ -27,16 +27,8 @@ var jsFilesToInject = [
 
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
+  'js/bundle.js',
 
-  // Dependencies like jQuery, or Angular are brought in here
-  'js/dependencies/**/*.js',
-  'bower_components/jquery/dist/jquery.min.js',
-  'bower_components/underscore/underscore-min.js',
-  'bower_components/react/react.min.js',
-
-  // All of the rest of your client-side js files
-  // will be injected here in no particular order.
-  'js/**/*.js'
 ];
 
 
